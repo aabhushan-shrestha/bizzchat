@@ -1,0 +1,136 @@
+﻿
+> bizzchat-demo@1.0.0 build
+> next build
+
+  Γû▓ Next.js 14.2.35
+  - Environments: .env.local
+  - Experiments (use with caution):
+    ┬╖ missingSuspenseWithCSRBailout
+
+   Creating an optimized production build ...
+ Γ£ô Compiled successfully
+   Skipping linting
+   Checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/10) ...
+node.exe : Error: Invalid supabaseUrl: Must be a 
+valid HTTP or HTTPS URL.
+At line:1 char:1
++ & "C:\Program Files\nodejs/node.exe" 
+"C:\Users\Aabhushan Shrestha\App ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Error:  
+   Invalid ...P or HTTPS URL.:String) [], RemoteExc  
+  eption
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+    at D:\Bizzchat 
+demo\.next\server\chunks\861.js:37:48198
+    at new rm (D:\Bizzchat 
+demo\.next\server\chunks\861.js:37:48380)
+    at ry (D:\Bizzchat 
+demo\.next\server\chunks\861.js:37:52120)
+    at rC (D:\Bizzchat 
+demo\.next\server\chunks\861.js:41:4468)
+    at r (D:\Bizzchat 
+demo\.next\server\app\auth\page.js:1:8049)
+    at o (D:\Bizzchat 
+demo\.next\server\app\auth\page.js:1:2155)
+    at nj (D:\Bizzchat demo\node_modules\next\dist\co
+mpiled\next-server\app-page.runtime.prod.js:12:46252)
+    at nM (D:\Bizzchat demo\node_modules\next\dist\co
+mpiled\next-server\app-page.runtime.prod.js:12:47572)
+    at nL (D:\Bizzchat demo\node_modules\next\dist\co
+mpiled\next-server\app-page.runtime.prod.js:12:64547)
+    at nI (D:\Bizzchat demo\node_modules\next\dist\co
+mpiled\next-server\app-page.runtime.prod.js:12:47011)
+ {
+  digest: '347852341'
+}
+
+Error occurred prerendering page "/auth". Read more: 
+https://nextjs.org/docs/messages/prerender-error
+
+Error: Invalid supabaseUrl: Must be a valid HTTP or 
+HTTPS URL.
+    at D:\Bizzchat 
+demo\.next\server\chunks\861.js:37:48198
+    at new rm (D:\Bizzchat 
+demo\.next\server\chunks\861.js:37:48380)
+    at ry (D:\Bizzchat 
+demo\.next\server\chunks\861.js:37:52120)
+    at rC (D:\Bizzchat 
+demo\.next\server\chunks\861.js:41:4468)
+    at r (D:\Bizzchat 
+demo\.next\server\app\auth\page.js:1:8049)
+    at o (D:\Bizzchat 
+demo\.next\server\app\auth\page.js:1:2155)
+    at nj (D:\Bizzchat demo\node_modules\next\dist\co
+mpiled\next-server\app-page.runtime.prod.js:12:46252)
+    at nM (D:\Bizzchat demo\node_modules\next\dist\co
+mpiled\next-server\app-page.runtime.prod.js:12:47572)
+    at nL (D:\Bizzchat demo\node_modules\next\dist\co
+mpiled\next-server\app-page.runtime.prod.js:12:64547)
+    at nI (D:\Bizzchat demo\node_modules\next\dist\co
+mpiled\next-server\app-page.runtime.prod.js:12:47011)
+   Generating static pages (2/10) 
+Error: Invalid supabaseUrl: Must be a valid HTTP or 
+HTTPS URL.
+    at D:\Bizzchat 
+demo\.next\server\chunks\861.js:37:48198
+    at new rm (D:\Bizzchat 
+demo\.next\server\chunks\861.js:37:48380)
+    at ry (D:\Bizzchat 
+demo\.next\server\chunks\861.js:37:52120)
+    at rC (D:\Bizzchat 
+demo\.next\server\chunks\861.js:41:4468)
+    at r (D:\Bizzchat 
+demo\.next\server\app\onboarding\page.js:1:6563)
+    at l (D:\Bizzchat 
+demo\.next\server\app\onboarding\page.js:1:2059)
+    at nj (D:\Bizzchat demo\node_modules\next\dist\co
+mpiled\next-server\app-page.runtime.prod.js:12:46252)
+    at nM (D:\Bizzchat demo\node_modules\next\dist\co
+mpiled\next-server\app-page.runtime.prod.js:12:47572)
+    at nL (D:\Bizzchat demo\node_modules\next\dist\co
+mpiled\next-server\app-page.runtime.prod.js:12:64547)
+    at nI (D:\Bizzchat demo\node_modules\next\dist\co
+mpiled\next-server\app-page.runtime.prod.js:12:47011)
+ {
+  digest: '516166072'
+}
+
+Error occurred prerendering page "/onboarding". Read 
+more: 
+https://nextjs.org/docs/messages/prerender-error
+
+Error: Invalid supabaseUrl: Must be a valid HTTP or 
+HTTPS URL.
+    at D:\Bizzchat 
+demo\.next\server\chunks\861.js:37:48198
+    at new rm (D:\Bizzchat 
+demo\.next\server\chunks\861.js:37:48380)
+    at ry (D:\Bizzchat 
+demo\.next\server\chunks\861.js:37:52120)
+    at rC (D:\Bizzchat 
+demo\.next\server\chunks\861.js:41:4468)
+    at r (D:\Bizzchat 
+demo\.next\server\app\onboarding\page.js:1:6563)
+    at l (D:\Bizzchat 
+demo\.next\server\app\onboarding\page.js:1:2059)
+    at nj (D:\Bizzchat demo\node_modules\next\dist\co
+mpiled\next-server\app-page.runtime.prod.js:12:46252)
+    at nM (D:\Bizzchat demo\node_modules\next\dist\co
+mpiled\next-server\app-page.runtime.prod.js:12:47572)
+    at nL (D:\Bizzchat demo\node_modules\next\dist\co
+mpiled\next-server\app-page.runtime.prod.js:12:64547)
+    at nI (D:\Bizzchat demo\node_modules\next\dist\co
+mpiled\next-server\app-page.runtime.prod.js:12:47011)
+   Generating static pages (4/10) 
+   Generating static pages (7/10) 
+ Γ£ô Generating static pages (10/10)
+
+> Export encountered errors on following paths:
+	/auth/page: /auth
+	/onboarding/page: /onboarding

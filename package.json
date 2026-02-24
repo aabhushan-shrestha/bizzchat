@@ -1,0 +1,31 @@
+{
+  "name": "bizzchat-demo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@supabase/ssr": "^0.5.1",
+    "@supabase/supabase-js": "^2.47.10",
+    "@types/uuid": "^10.0.0",
+    "autoprefixer": "^10.4.17",
+    "next": "14.2.35",
+    "postcss": "^8.4.35",
+    "react": "^18",
+    "react-dom": "^18",
+    "tailwindcss": "^3.4.1",
+    "uuid": "^13.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^9.39.3",
+    "eslint-config-next": "^16.1.6",
+    "typescript": "^5"
+  }
+}
