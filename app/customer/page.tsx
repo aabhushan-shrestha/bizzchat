@@ -156,7 +156,7 @@ export default function CustomerPage() {
         return (
             <div className="h-screen flex flex-col bg-white safe-top">
                 {/* Chat header */}
-                <div className="flex items-center gap-3 px-4 py-3.5 border-b border-[#e5e5e5] safe-top">
+                <div className="flex items-center gap-3 px-4 py-3.5 border-b border-[#e5e5e5] safe-top relative z-40 bg-white">
                     <button
                         onClick={() => { setShowChat(false); setSelectedConversationId(null) }}
                         className="p-1.5 rounded-xl hover:bg-[#f0f0f0] text-[#6b7280]"
@@ -170,12 +170,16 @@ export default function CustomerPage() {
                         <p className="text-sm font-semibold text-[#1a1a1a]">{selectedBusinessName}</p>
                         <p className="text-[10px] text-[#9ca3af]">Business</p>
                     </div>
-                    <button
-                        onClick={() => setIsOrderPopupOpen(true)}
-                        className="ml-auto bg-[#1a1a1a] text-white text-xs font-medium px-3 py-1.5 rounded-full hover:bg-[#333] transition-colors flex items-center gap-1.5"
-                    >
-                        <span>🛍️</span> Order Now
-                    </button>
+
+                    <div className="ml-auto flex items-center gap-2">
+                        <button
+                            onClick={() => setIsOrderPopupOpen(true)}
+                            className="bg-[#1a1a1a] text-white text-xs font-medium px-3 py-1.5 rounded-full hover:bg-[#333] transition-colors flex items-center gap-1.5"
+                        >
+                            <span>🛍️</span> Order
+                        </button>
+                        <UserDropdown name={user?.full_name || user?.email} size="sm" position="bottom" />
+                    </div>
                 </div>
 
                 <OrderPopupModal

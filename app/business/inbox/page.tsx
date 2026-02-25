@@ -161,18 +161,22 @@ export default function InboxPage() {
                                     <p className="text-sm font-semibold text-[#1a1a1a]">{selectedCustomerName}</p>
                                     <p className="text-[10px] text-[#9ca3af]">Customer</p>
                                 </div>
-                                {botActive && (
-                                    <div className="ml-auto flex items-center gap-1.5 text-xs text-[#7c3aed] bg-[#f3f0ff] px-2.5 py-1 rounded-full">
-                                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z" />
-                                        </svg>
-                                        Order bot active — Step {botState.step}/4
+                                <div className="ml-auto flex items-center gap-3">
+                                    {botActive && (
+                                        <div className="hidden md:flex items-center gap-1.5 text-xs text-[#7c3aed] bg-[#f3f0ff] px-2.5 py-1 rounded-full">
+                                            <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z" />
+                                            </svg>
+                                            Order bot active
+                                        </div>
+                                    )}
+                                    <div className="hidden md:flex items-center gap-1 text-[10px] text-[#9ca3af]">
+                                        <span>Tip:</span>
+                                        <kbd className="font-mono bg-[#f0f0f0] px-1.5 py-0.5 rounded text-[10px]">/order</kbd>
                                     </div>
-                                )}
-                                <div className="ml-auto md:ml-0 flex items-center gap-1 text-[10px] text-[#9ca3af]">
-                                    <span>Tip:</span>
-                                    <kbd className="font-mono bg-[#f0f0f0] px-1.5 py-0.5 rounded text-[10px]">/order</kbd>
-                                    <span>for automation</span>
+                                    <div className="md:hidden">
+                                        <UserDropdown name={user?.full_name || user?.email || business?.business_name} size="sm" position="bottom" />
+                                    </div>
                                 </div>
                             </div>
 
