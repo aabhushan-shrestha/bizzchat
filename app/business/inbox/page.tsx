@@ -11,6 +11,7 @@ import MessageList from '@/components/chat/MessageList'
 import ChatInput from '@/components/chat/ChatInput'
 import { Business, Profile } from '@/lib/types/database'
 import Avatar from '@/components/ui/Avatar'
+import UserDropdown from '@/components/ui/UserDropdown'
 
 export default function InboxPage() {
     const [user, setUser] = useState<Profile | null>(null)
@@ -89,7 +90,12 @@ export default function InboxPage() {
                 <div className={`${showMobileChat ? 'hidden md:flex' : 'flex'} flex-col w-full md:w-72 lg:w-80 bg-white border-r border-[#e5e5e5]`}>
                     {/* Header */}
                     <div className="px-4 py-4 border-b border-[#e5e5e5] flex items-center justify-between">
-                        <h1 className="text-base font-semibold text-[#1a1a1a]">Inbox</h1>
+                        <div className="flex items-center gap-3">
+                            <div className="md:hidden">
+                                <UserDropdown name={user?.full_name || user?.email || business?.business_name} size="sm" position="bottom" />
+                            </div>
+                            <h1 className="text-base font-semibold text-[#1a1a1a]">Inbox</h1>
+                        </div>
                         <div className="flex items-center gap-1">
                             <span className="text-xs text-[#9ca3af]">{conversations.length} conversations</span>
                         </div>

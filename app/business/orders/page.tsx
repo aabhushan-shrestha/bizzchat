@@ -5,7 +5,8 @@ import { createClient } from '@/lib/supabase/client'
 import { useOrders } from '@/lib/hooks/useOrders'
 import BusinessSidebar from '@/components/business/BusinessSidebar'
 import { OrderRow } from '@/components/business/OrderRow'
-import { Business, Order } from '@/lib/types/database'
+import { Business, Order, Profile } from '@/lib/types/database'
+import UserDropdown from '@/components/ui/UserDropdown'
 
 export default function OrdersPage() {
     const [business, setBusiness] = useState<Business | null>(null)
@@ -13,11 +14,15 @@ export default function OrdersPage() {
     const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
     const supabase = createClient()
 
+    const [user, setUser] = useState<Profile | null>(null)
+
     useEffect(() => {
         async function load() {
-            const { data: { user } } = await supabase.auth.getUser()
-            if (!user) return
-            const { data: biz } = await supabase.from('businesses').select('*').eq('owner_id', user.id).single()
+            const { data: { user: authUser } } = await supabase.auth.getUser()
+            if (!authUser) return
+            const { data: profile } = await supabase.from('profiles').select('*').eq('id', authUser.id).single()
+            const { data: biz } = await supabase.from('businesses').select('*').eq('owner_id', authUser.id).single()
+            setUser(profile)
             setBusiness(biz)
         }
         load()
@@ -45,11 +50,16 @@ export default function OrdersPage() {
                 {/* Header */}
                 <div className="bg-white border-b border-[#e5e5e5] px-6 py-4">
                     <div className="flex items-center justify-between">
-                        <div>
-                            <h1 className="text-lg font-semibold text-[#1a1a1a]">Orders</h1>
-                            <p className="text-sm text-[#6b7280] mt-0.5">
-                                {orders.length} {orders.length === 1 ? 'order' : 'orders'} total
-                            </p>
+                        <div className="flex items-center gap-3">
+                            <div className="md:hidden">
+                                <UserDropdown name={user?.full_name || user?.email || business?.business_name} size="sm" position="bottom" />
+                            </div>
+                            <div>
+                                <h1 className="text-lg font-semibold text-[#1a1a1a]">Orders</h1>
+                                <p className="text-sm text-[#6b7280] mt-0.5">
+                                    {orders.length} {orders.length === 1 ? 'order' : 'orders'} total
+                                </p>
+                            </div>
                         </div>
                         <div className="flex items-center gap-3">
                             <div className="flex items-center gap-2 text-xs text-[#9ca3af]">
