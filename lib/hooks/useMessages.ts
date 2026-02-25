@@ -10,17 +10,17 @@ export function useMessages(conversationId: string | null) {
     const supabase = createClient()
     const channelRef = useRef<ReturnType<typeof supabase.channel> | null>(null)
 
-    const fetchMessages = useCallback(async () => {
+    const fetchMessages = useCallback(async (isPolling = false) => {
         if (!conversationId) return
-        setLoading(true)
+        if (!isPolling) setLoading(true)
         const { data } = await supabase
             .from('messages')
             .select('*, profiles(full_name)')
             .eq('conversation_id', conversationId)
             .order('created_at', { ascending: true })
 
-        setMessages((data as MessageWithSender[]) || [])
-        setLoading(false)
+        if (data) setMessages(data as MessageWithSender[])
+        if (!isPolling) setLoading(false)
     }, [conversationId]) // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
@@ -60,8 +60,14 @@ export function useMessages(conversationId: string | null) {
 
         channelRef.current = channel
 
+        // Fallback polling every 3 seconds to guarantee delivery
+        const intervalId = setInterval(() => {
+            fetchMessages(true)
+        }, 3000)
+
         return () => {
             supabase.removeChannel(channel)
+            clearInterval(intervalId)
         }
     }, [conversationId, fetchMessages]) // eslint-disable-line react-hooks/exhaustive-deps
 
