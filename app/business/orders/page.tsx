@@ -130,6 +130,13 @@ export default function OrdersPage() {
                                 </svg>
                             )
                         },
+                        {
+                            href: '/business/order-popup', label: 'Order pop-up', icon: (
+                                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16m-7 6h7" />
+                                </svg>
+                            )
+                        },
                     ].map((item: any) => (
                         <a
                             key={item.href}

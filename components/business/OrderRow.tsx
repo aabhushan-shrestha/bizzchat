@@ -63,6 +63,8 @@ export function OrderRow({ order, onMarkDelivered, onExpand, isExpanded }: Order
 }
 
 function OrderPanel({ invoice, order }: { invoice: InvoiceJson; order: Order }) {
+    const formData = order.form_response_json as Record<string, any> | null;
+
     return (
         <div className="bg-white border border-[#e5e5e5] rounded-xl p-5 animate-fade-in max-w-lg">
             <div className="flex items-center justify-between mb-4">
@@ -81,13 +83,26 @@ function OrderPanel({ invoice, order }: { invoice: InvoiceJson; order: Order }) 
                     </div>
                 </div>
                 <div className="border-t border-[#f0f0f0] pt-3">
-                    <p className="text-[10px] uppercase tracking-wide text-[#9ca3af] mb-2">Customer</p>
+                    <p className="text-[10px] uppercase tracking-wide text-[#9ca3af] mb-2">Customer Details</p>
                     <div className="space-y-1">
-                        <p className="text-[#1a1a1a]"><span className="text-[#6b7280]">Name:</span> {order.customer_name}</p>
-                        <p className="text-[#1a1a1a]"><span className="text-[#6b7280]">Address:</span> {order.address}</p>
-                        <p className="text-[#1a1a1a]"><span className="text-[#6b7280]">Phone:</span> {order.phone}</p>
+                        <p className="text-[#1a1a1a]"><span className="text-[#6b7280]">Name:</span> {order.customer_name || '—'}</p>
+                        <p className="text-[#1a1a1a]"><span className="text-[#6b7280]">Address:</span> {order.address || '—'}</p>
+                        <p className="text-[#1a1a1a]"><span className="text-[#6b7280]">Phone:</span> {order.phone || '—'}</p>
                     </div>
                 </div>
+                {formData && Object.keys(formData).length > 0 && (
+                    <div className="border-t border-[#f0f0f0] pt-3">
+                        <p className="text-[10px] uppercase tracking-wide text-[#9ca3af] mb-2">Form Responses</p>
+                        <div className="space-y-2">
+                            {Object.entries(formData).map(([key, value]) => (
+                                <div key={key}>
+                                    <p className="text-[#6b7280] text-xs capitalize">{key.replace(/_/g, ' ')}:</p>
+                                    <p className="text-[#1a1a1a]">{String(value) || '—'}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
                 <div className="border-t border-[#f0f0f0] pt-3">
                     <p className="text-[10px] uppercase tracking-wide text-[#9ca3af] mb-1">Product</p>
                     <p className="text-[#1a1a1a] font-medium">{order.product_name}</p>

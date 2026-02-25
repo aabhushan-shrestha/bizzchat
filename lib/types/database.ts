@@ -112,38 +112,68 @@ export interface Database {
                 Row: {
                     id: string
                     business_id: string
-                    conversation_id: string
-                    customer_name: string
-                    address: string
-                    phone: string
-                    product_name: string
-                    invoice_json: Json
+                    conversation_id: string | null
+                    customer_id: string | null
+                    customer_name: string | null
+                    address: string | null
+                    phone: string | null
+                    product_name: string | null
+                    form_response_json: Json | null
+                    invoice_json: Json | null
                     status: 'pending' | 'delivered'
                     created_at: string
                 }
                 Insert: {
                     id?: string
                     business_id: string
-                    conversation_id?: string
-                    customer_name: string
-                    address: string
-                    phone: string
-                    product_name: string
-                    invoice_json?: Json
+                    conversation_id?: string | null
+                    customer_id?: string | null
+                    customer_name?: string | null
+                    address?: string | null
+                    phone?: string | null
+                    product_name?: string | null
+                    form_response_json?: Json | null
+                    invoice_json?: Json | null
                     status?: 'pending' | 'delivered'
                     created_at?: string
                 }
                 Update: {
                     id?: string
                     business_id?: string
-                    conversation_id?: string
-                    customer_name?: string
-                    address?: string
-                    phone?: string
-                    product_name?: string
-                    invoice_json?: Json
+                    conversation_id?: string | null
+                    customer_id?: string | null
+                    customer_name?: string | null
+                    address?: string | null
+                    phone?: string | null
+                    product_name?: string | null
+                    form_response_json?: Json | null
+                    invoice_json?: Json | null
                     status?: 'pending' | 'delivered'
                     created_at?: string
+                }
+                Relationships: []
+            }
+            order_form_configs: {
+                Row: {
+                    id: string
+                    business_id: string
+                    fields_json: Json | null
+                    created_at: string
+                    updated_at: string
+                }
+                Insert: {
+                    id?: string
+                    business_id: string
+                    fields_json?: Json | null
+                    created_at?: string
+                    updated_at?: string
+                }
+                Update: {
+                    id?: string
+                    business_id?: string
+                    fields_json?: Json | null
+                    created_at?: string
+                    updated_at?: string
                 }
                 Relationships: []
             }
@@ -168,6 +198,7 @@ export type Business = Database['public']['Tables']['businesses']['Row']
 export type Conversation = Database['public']['Tables']['conversations']['Row']
 export type Message = Database['public']['Tables']['messages']['Row']
 export type Order = Database['public']['Tables']['orders']['Row']
+export type OrderFormConfig = Database['public']['Tables']['order_form_configs']['Row']
 
 export type ConversationWithDetails = Conversation & {
     businesses?: { business_name: string } | null

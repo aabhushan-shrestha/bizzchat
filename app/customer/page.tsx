@@ -9,12 +9,16 @@ import MessageList from '@/components/chat/MessageList'
 import ChatInput from '@/components/chat/ChatInput'
 import { Profile, Business } from '@/lib/types/database'
 import Avatar from '@/components/ui/Avatar'
+import OrderPopupModal from '@/components/customer/OrderPopupModal'
+import Link from 'next/link'
 
 export default function CustomerPage() {
     const [user, setUser] = useState<Profile | null>(null)
     const [selectedConversationId, setSelectedConversationId] = useState<string | null>(null)
+    const [selectedBusinessId, setSelectedBusinessId] = useState<string | null>(null)
     const [selectedBusinessName, setSelectedBusinessName] = useState('')
     const [showChat, setShowChat] = useState(false)
+    const [isOrderPopupOpen, setIsOrderPopupOpen] = useState(false)
     const [showBusinessList, setShowBusinessList] = useState(false)
     const [businesses, setBusinesses] = useState<Business[]>([])
     const [creating, setCreating] = useState(false)
@@ -56,6 +60,7 @@ export default function CustomerPage() {
 
         if (existing) {
             setSelectedConversationId(existing.id)
+            setSelectedBusinessId(biz.id)
             setSelectedBusinessName(biz.business_name)
             setShowBusinessList(false)
             setShowChat(true)
@@ -76,6 +81,7 @@ export default function CustomerPage() {
 
         if (newConv) {
             setSelectedConversationId(newConv.id)
+            setSelectedBusinessId(biz.id)
             setSelectedBusinessName(biz.business_name)
             await refetch()
         }
@@ -85,8 +91,9 @@ export default function CustomerPage() {
         setCreating(false)
     }
 
-    function openConversation(convId: string, businessName: string) {
+    function openConversation(convId: string, businessId: string, businessName: string) {
         setSelectedConversationId(convId)
+        setSelectedBusinessId(businessId)
         setSelectedBusinessName(businessName)
         setShowChat(true)
     }
@@ -162,7 +169,24 @@ export default function CustomerPage() {
                         <p className="text-sm font-semibold text-[#1a1a1a]">{selectedBusinessName}</p>
                         <p className="text-[10px] text-[#9ca3af]">Business</p>
                     </div>
+                    <button
+                        onClick={() => setIsOrderPopupOpen(true)}
+                        className="ml-auto bg-[#1a1a1a] text-white text-xs font-medium px-3 py-1.5 rounded-full hover:bg-[#333] transition-colors flex items-center gap-1.5"
+                    >
+                        <span>🛍️</span> Order Now
+                    </button>
                 </div>
+
+                <OrderPopupModal
+                    isOpen={isOrderPopupOpen}
+                    businessId={selectedBusinessId || ''}
+                    conversationId={selectedConversationId}
+                    customerId={user?.id || ''}
+                    onClose={() => setIsOrderPopupOpen(false)}
+                    onSuccess={() => {
+                        // Optional: trigger a message or reload orders
+                    }}
+                />
 
                 <MessageList
                     messages={messages}
@@ -181,7 +205,7 @@ export default function CustomerPage() {
 
     // Conversation list
     return (
-        <div className="h-screen flex flex-col bg-white safe-top">
+        <div className="h-screen flex flex-col bg-white safe-top pb-16">
             {/* Header */}
             <div className="flex items-center justify-between px-4 py-4 border-b border-[#e5e5e5]">
                 <div className="flex items-center gap-3">
@@ -243,11 +267,41 @@ export default function CustomerPage() {
                             role="customer"
                             onClick={() => openConversation(
                                 conv.id,
+                                conv.business_id,
                                 conv.businesses?.business_name || 'Business'
                             )}
                         />
                     ))
                 )}
+            </div>
+
+            {/* Mobile bottom nav */}
+            <div className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-[#e5e5e5] safe-bottom flex items-center pb-2 pt-2 md:pb-0 md:pt-0">
+                {[
+                    {
+                        href: '/customer', label: 'Messages', active: true, icon: (
+                            <svg className="w-5 h-5 mx-auto mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                            </svg>
+                        )
+                    },
+                    {
+                        href: '/customer/orders', label: 'Orders', active: false, icon: (
+                            <svg className="w-5 h-5 mx-auto mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                            </svg>
+                        )
+                    },
+                ].map((item: any) => (
+                    <Link
+                        key={item.href}
+                        href={item.href}
+                        className={`flex-1 flex flex-col items-center py-2 ${item.active ? 'text-[#1a1a1a]' : 'text-[#6b7280]'}`}
+                    >
+                        {item.icon}
+                        <span className="text-[10px]">{item.label}</span>
+                    </Link>
+                ))}
             </div>
         </div>
     )
