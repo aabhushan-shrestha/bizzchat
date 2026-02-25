@@ -73,7 +73,7 @@ export default function OrderPopupConfigPage() {
             {/* Main content */}
             <div className="flex-1 flex flex-col overflow-hidden">
                 {/* Header */}
-                <div className="bg-white border-b border-[#e5e5e5] px-6 py-4 flex items-center justify-between">
+                <div className="bg-white border-b border-[#e5e5e5] px-6 py-4 flex items-center justify-between relative z-40">
                     <div className="flex items-center gap-3">
                         <div className="md:hidden">
                             <UserDropdown name={user?.full_name || user?.email || business?.business_name} size="sm" position="bottom" />

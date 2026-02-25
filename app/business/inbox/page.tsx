@@ -89,7 +89,7 @@ export default function InboxPage() {
                 {/* Conversation list */}
                 <div className={`${showMobileChat ? 'hidden md:flex' : 'flex'} flex-col w-full md:w-72 lg:w-80 bg-white border-r border-[#e5e5e5]`}>
                     {/* Header */}
-                    <div className="px-4 py-4 border-b border-[#e5e5e5] flex items-center justify-between">
+                    <div className="px-4 py-4 border-b border-[#e5e5e5] flex items-center justify-between sticky top-0 bg-white z-40">
                         <div className="flex items-center gap-3">
                             <div className="md:hidden">
                                 <UserDropdown name={user?.full_name || user?.email || business?.business_name} size="sm" position="bottom" />
@@ -147,7 +147,7 @@ export default function InboxPage() {
                     {selectedConversationId ? (
                         <>
                             {/* Chat header */}
-                            <div className="flex items-center gap-3 px-4 py-3.5 border-b border-[#e5e5e5]">
+                            <div className="flex items-center gap-3 px-4 py-3.5 border-b border-[#e5e5e5] relative z-40 bg-white">
                                 <button
                                     className="md:hidden p-1 -ml-1 rounded hover:bg-[#f0f0f0] mr-1"
                                     onClick={() => setShowMobileChat(false)}
