@@ -9,6 +9,7 @@ import MessageList from '@/components/chat/MessageList'
 import ChatInput from '@/components/chat/ChatInput'
 import { Profile, Business } from '@/lib/types/database'
 import Avatar from '@/components/ui/Avatar'
+import UserDropdown from '@/components/ui/UserDropdown'
 import OrderPopupModal from '@/components/customer/OrderPopupModal'
 import Link from 'next/link'
 
@@ -209,7 +210,7 @@ export default function CustomerPage() {
             {/* Header */}
             <div className="flex items-center justify-between px-4 py-4 border-b border-[#e5e5e5]">
                 <div className="flex items-center gap-3">
-                    <Avatar name={user?.full_name || user?.email} size="sm" />
+                    <UserDropdown name={user?.full_name || user?.email} size="sm" />
                     <h1 className="text-base font-semibold text-[#1a1a1a]">Messages</h1>
                 </div>
                 <button

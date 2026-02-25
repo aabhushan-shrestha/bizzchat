@@ -4,6 +4,9 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
+import { useState, useEffect } from 'react'
+import UserDropdown from '@/components/ui/UserDropdown'
+import { Profile } from '@/lib/types/database'
 
 interface SidebarProps {
     businessName: string
@@ -45,12 +48,17 @@ export default function BusinessSidebar({ businessName, collapsed, onToggle }: S
     const pathname = usePathname()
     const supabase = createClient()
     const router = useRouter()
+    const [user, setUser] = useState<Profile | null>(null)
 
-    async function handleSignOut() {
-        await supabase.auth.signOut()
-        router.push('/auth')
-        router.refresh()
-    }
+    useEffect(() => {
+        async function load() {
+            const { data: { user: authUser } } = await supabase.auth.getUser()
+            if (!authUser) return
+            const { data } = await supabase.from('profiles').select('*').eq('id', authUser.id).single()
+            setUser(data)
+        }
+        load()
+    }, [])
 
     return (
         <aside className={`h-full bg-white border-r border-[#e5e5e5] flex flex-col transition-all duration-200 ${collapsed ? 'w-14' : 'w-60'}`}>
@@ -98,18 +106,14 @@ export default function BusinessSidebar({ businessName, collapsed, onToggle }: S
                 })}
             </nav>
 
-            {/* Settings/Sign out */}
+            {/* Settings/Account */}
             <div className={`border-t border-[#e5e5e5] p-2 ${collapsed ? 'flex justify-center' : ''}`}>
-                <button
-                    onClick={handleSignOut}
-                    className={`flex items-center gap-3 px-3 py-2 w-full rounded-lg text-sm text-[#6b7280] hover:bg-[#f0f0f0] hover:text-[#1a1a1a] transition-colors ${collapsed ? 'justify-center' : ''}`}
-                    title={collapsed ? 'Sign out' : undefined}
-                >
-                    <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                    </svg>
-                    {!collapsed && <span>Sign out</span>}
-                </button>
+                <UserDropdown
+                    name={user?.full_name || user?.email}
+                    size="sm"
+                    position="top"
+                    showName={!collapsed}
+                />
             </div>
         </aside>
     )
